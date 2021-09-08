@@ -10,7 +10,9 @@
 Here's the first example to get you started.
 
 ```js
-import { blue, bold, underline } from "colorette"
+import createColors from "colorette"
+
+const { blue, bold, underline } = createColors()
 
 console.log(
   blue("I'm blue"),
@@ -55,19 +57,17 @@ npm install colorette
 See [supported styles](#supported-styles).
 
 ```js
-import { blue } from "colorette"
-
 blue("I'm blue") //=> \x1b[34mI'm blue\x1b[39m
 ```
 
-### `options.enabled`
+### `default({ colorize: boolean })`
 
-Colorette automatically detects if your terminal can display color, but you can toggle color as needed.
+Colorette automatically detects if your terminal can display color, but you can enable or disable color as needed.
 
 ```js
-import { options } from "colorette"
+import createColors from "colorette"
 
-options.enabled = false
+const { blue } = createColors({ colorize: false })
 ```
 
 You can also force the use of color globally by setting `FORCE_COLOR=` or `NO_COLOR=` from the CLI.
