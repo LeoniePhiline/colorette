@@ -77,7 +77,7 @@ const colors = {
   bgWhiteBright: init(107, 49),
 }
 
-export default ({ enableColor } = { enableColor: isColorSupported }) =>
-  enableColor
+export default ({ colorize } = { colorize: isColorSupported }) =>
+  colorize
     ? colors
     : Object.keys(colors).reduce((keys, key) => ({ ...keys, [key]: id }), {})

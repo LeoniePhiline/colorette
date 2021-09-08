@@ -3,7 +3,7 @@ interface Style {
 }
 
 interface Options {
-  enableColor: boolean
+  colorize: boolean
 }
 
 interface Colors {
