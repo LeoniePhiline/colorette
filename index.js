@@ -25,14 +25,13 @@ const raw = (open, close, searchRegex, replaceValue) => (s) =>
       close
     : s
 
-const init = (open, close) => {
-  return raw(
+const init = (open, close) =>
+  raw(
     `\x1b[${open}m`,
     `\x1b[${close}m`,
     new RegExp(`\\x1b\\[${close}m`, "g"),
     `\x1b[${open}m`
   )
-}
 
 export const options = Object.defineProperty({}, "enabled", {
   get: () => enabled,
