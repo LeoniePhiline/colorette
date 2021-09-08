@@ -2,11 +2,7 @@ interface Style {
   (text: string | number): string
 }
 
-interface Options {
-  colorize: boolean
-}
-
-interface Colors {
+interface Styles {
   reset: Style
   bold: Style
   dim: Style
@@ -52,4 +48,4 @@ interface Colors {
 
 export const isColorSupported: boolean
 
-export default function (options: Options): Colors
+export default function (options: { colorize: boolean }): Styles
