@@ -1,5 +1,6 @@
 #!/bin/sh
 
 [ `NO_COLOR= node -e '
-    import("colorette").then(({ blue }) => console.log(blue("window")))
+    import("colorette").then(({ createColors }) =>
+      console.log(createColors().blue("window")))
   '` = "window" ]

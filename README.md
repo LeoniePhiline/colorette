@@ -1,18 +1,16 @@
 # Colorette
 
-> Easily set the text color and style in the terminal.
+> Easily set your terminal text color & styles.
 
 - No wonky prototype method-chain API.
 - Automatic color support detection.
 - Up to [2x faster](#benchmarks) than alternatives.
-- [`NO_COLOR`](https://no-color.org) friendly. 👌
+- [`NO_COLOR`](https://no-color.org) friendly. ✅
 
 Here's the first example to get you started.
 
 ```js
-import createColors from "colorette"
-
-const { blue, bold, underline } = createColors()
+import { blue, bold, underline } from "colorette"
 
 console.log(
   blue("I'm blue"),
@@ -38,10 +36,18 @@ Of course, you can nest styles without breaking existing color sequences.
 console.log(bold(`I'm ${blue(`da ba ${underline("dee")} da ba`)} daa`))
 ```
 
-Feeling adventurous? Try the [pipeline operator](https://github.com/tc39/proposal-pipeline-operator).
+Need to dynamically toggle color on or off? You can do that too.
 
 ```js
-console.log("Da ba dee da ba daa" |> blue |> bold)
+import { Colorette } from "colorette"
+
+const { blue, options } = new Colorette({ useColor: true })
+
+console.log(blue("I'm blue"))
+
+options.useColor = false
+
+console.log(blue("I'm not blue!"))
 ```
 
 ## Installation
@@ -52,29 +58,51 @@ npm install colorette
 
 ## API
 
-### `<style>(string)`
-
-See [supported styles](#supported-styles).
+### <code><i><a href="#supported-styles">colorOrStyle</a></i>(string)</code>
 
 ```js
 blue("I'm blue") //=> \x1b[34mI'm blue\x1b[39m
 ```
 
-### `default({ colorize: boolean })`
+### `isColorSupported`
 
-Colorette automatically detects if your terminal can display color, but you can enable or disable color as needed.
+`true` if your terminal supports color or `false` otherwise.
+
+### `new Colorette(options)`
+
+Create a Colorette instance. Terminal color support is automatically detected.
 
 ```js
-import createColors from "colorette"
+import { Colorette } from "colorette"
 
-const { blue } = createColors({ colorize: false })
+const { blue, options } = new Colorette({ useColor: true })
 ```
 
-You can also force the use of color globally by setting `FORCE_COLOR=` or `NO_COLOR=` from the CLI.
+### `createColors(options)`
+
+Create a Colorette instance. Terminal color support is automatically detected.
+
+```js
+import { createColors } from "colorette"
+
+const { blue, options } = createColors({ useColor: true })
+```
+
+#### `options.useColor`
+
+Toggle color on or off as needed.
+
+```js
+options.useColor = false
+```
+
+## Environment
+
+You can force color usage in new Colorette instances from the CLI via `FORCE_COLOR=` or `NO_COLOR=`.
 
 ```console
-$ FORCE_COLOR= node example.js >log
-$ NO_COLOR= node example.js
+$ FORCE_COLOR= node example.js >color_log
+$ NO_COLOR= node example.js >no_color_log
 ```
 
 ## Supported styles
